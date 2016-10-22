@@ -1,6 +1,9 @@
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
@@ -36,7 +39,17 @@ private void initComponents() {
 	menuSaveGame = new javax.swing.JMenuItem();
 	jSeparator = new javax.swing.JSeparator();
 	menuFileExit = new javax.swing.JMenuItem();
+	
+	   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				int sizeWidth = 585;
+				
+				int locationX = (screenSize.width - sizeWidth) / 2;
+				int locationY = 0; 
+				setBounds(locationX, locationY, sizeWidth, screenSize.height);
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				setResizable(false);
 	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	//setExtendedState(MAXIMIZED_BOTH);
 	setFocusable(false);
 	tetrisGamePanel.addKeyListener(new java.awt.event.KeyAdapter() {
 		public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -106,7 +119,7 @@ private void initComponents() {
 										.addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 										.addGroup(layout.createSequentialGroup()
 												.addContainerGap()
-												.addComponent(tetrisGamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)))
+												.addComponent(tetrisGamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)))
 												.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				);
 		layout.setVerticalGroup(

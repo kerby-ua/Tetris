@@ -24,8 +24,9 @@ public void paintComponent(Graphics g) {
 	fig.draw(g);
 	g.setFont(new Font("Times New Roman", Font.BOLD, 24));
 	g.setColor(Color.BLACK);
-	g.drawString("Score: " + score, 350, 250);
-	g.drawString("Level: " + level, 350, 300);
+	g.drawString("Next: ", 500, 40);
+	g.drawString("Score: " + score, 490, 200);
+	g.drawString("Level: " + level, 490, 220);
 }
 public int getScore() {
 	return score;

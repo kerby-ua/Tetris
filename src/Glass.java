@@ -5,8 +5,7 @@ import java.awt.Graphics;
 public class Glass {
 	final static int maxLine=21;
 	final static int maxColon=15;
-	private int[] x = {0, 10, 10, 310, 310, 320, 320, 0};
-	private int[] y = {0, 0, 600, 600, 0, 0, 610, 610};
+	
 	private int[][] cells = new int[maxLine][maxColon];
 	public Glass() {
 		clearGlass();

@@ -99,7 +99,7 @@ public void draw(Graphics g) {
 					g.fillRect((x+j)*30+11,(i+y)*30+1,28,28);
 				}
 	}
-	drawNext(g,350,50);
+	drawNext(g,470,50);
 }
 public void drawNext(Graphics g, int px, int py) {
 	int[][] p = new int[PATTERN[nextType].length][PATTERN[nextType][0].length];
