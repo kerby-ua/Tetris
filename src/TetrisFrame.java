@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -41,7 +42,7 @@ private void initComponents() {
 	menuFileExit = new javax.swing.JMenuItem();
 	
 	   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-				int sizeWidth = 585;
+				int sizeWidth = 555;
 				
 				int locationX = (screenSize.width - sizeWidth) / 2;
 				int locationY = 0; 
@@ -94,7 +95,12 @@ private void initComponents() {
 		menuScore.setText("Leaders");
 		menuScore.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				menuScore1ActionPerformed(evt);
+				try {
+					menuScore1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -119,7 +125,7 @@ private void initComponents() {
 										.addComponent(buttonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 										.addGroup(layout.createSequentialGroup()
 												.addContainerGap()
-												.addComponent(tetrisGamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)))
+												.addComponent(tetrisGamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)))
 												.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				);
 		layout.setVerticalGroup(
@@ -176,7 +182,8 @@ public void menuSave1ActionPerformed(ActionEvent evt) {
 public void menuLoad1ActionPerformed(ActionEvent evt) {
 	
 }
-public void menuScore1ActionPerformed(ActionEvent evt) {
-	
+public void menuScore1ActionPerformed(ActionEvent evt) throws IOException {
+	TetrisGamePanel p = (TetrisGamePanel)tetrisGamePanel;
+	p.gameScore();
 }
 }

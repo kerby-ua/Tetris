@@ -1,11 +1,17 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.*;
 public class TetrisGamePanel extends javax.swing.JPanel implements ActionListener {
 	final static int PLAY = 1;
 	final static int STOP = 2;
 	final static int PAUSE =3;
-	//final static int END =4;
 	private Glass stakan;
 	private Figure fig = null;
 	private int score = 0;
@@ -24,9 +30,9 @@ public void paintComponent(Graphics g) {
 	fig.draw(g);
 	g.setFont(new Font("Times New Roman", Font.BOLD, 24));
 	g.setColor(Color.BLACK);
-	g.drawString("Next: ", 500, 40);
-	g.drawString("Score: " + score, 490, 200);
-	g.drawString("Level: " + level, 490, 220);
+	g.drawString("Next: ", 430, 30);
+	g.drawString("Score: " + score, 410, 200);
+	g.drawString("Level: " + level, 410, 220);
 }
 public int getScore() {
 	return score;
@@ -78,6 +84,59 @@ public void gamePauseResume(){
 			gameState = PLAY;
 		}
 	}
+public void gameScore() throws IOException{
+	File file = new File("score.txt");
+	 StringBuilder sb = new StringBuilder();
+	   BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
+           String s;
+           while ((s = in.readLine()) != null) {
+        	   sb.append(s);
+               sb.append("\n");
+           }
+  JOptionPane.showMessageDialog(null, sb.toString(), "Leaders", JOptionPane.PLAIN_MESSAGE);
+}
+public static void checkLeaders(int score) throws IOException {
+	File file = new File("score.txt");
+	 StringBuilder sb = new StringBuilder();
+	   BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
+	  
+          String s; String temp[];
+          int i=0;
+          boolean flag=false;
+          temp=new String[10];
+          while (((s = in.readLine()) != null)) {
+       	   temp[i]=s;
+       	   
+       	   if (score>Integer.parseInt(temp[i].substring(temp[i].indexOf(" ")+1)))
+       		   flag=true;
+       	i++;  
+          }
+       
+          String a="";
+          if (flag){
+        	  a = (String)JOptionPane.showInputDialog(
+                      null,
+                      "Congratulations, \n"
+                      + "you are in the list of leaders",
+                      "Customized Dialog",
+                      JOptionPane.PLAIN_MESSAGE,
+                      null,
+                      null,
+                      "Your name");
+        	  a=a.replace(' ', '_');
+        	  for(i=0;i<temp.length;i++)
+        		  if ((score>Integer.parseInt(temp[i].substring(temp[i].indexOf(" ")+1)))&&(flag)){
+        			  temp[i]=a+" "+score;
+        			  flag=false;
+        			  }
+        	  BufferedWriter  out = new BufferedWriter(new FileWriter(file,false));
+        	  for(i=0;i<temp.length;i++){
+        		  out.write(temp[i]);
+        		  out.append('\n');
+        	  }
+        	  out.flush();
+          }
+}
 public void actionPerformed(ActionEvent e) {
 	if (gameState != PLAY) {
 		return;
@@ -88,6 +147,13 @@ public void actionPerformed(ActionEvent e) {
 	} else {
 		if ((bonus = stakan.acceptFigure(fig)) < 0) {
 			stopGame();
+			JOptionPane.showMessageDialog(null, "Your score: "+score, "Game over", JOptionPane.PLAIN_MESSAGE);
+			try {
+				checkLeaders(score);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		if (bonus > 0) {
 			switch (bonus) {

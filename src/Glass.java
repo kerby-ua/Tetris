@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public class Glass {
 	final static int maxLine=21;
-	final static int maxColon=15;
+	final static int maxColon=12;
 	
 	private int[][] cells = new int[maxLine][maxColon];
 	public Glass() {
