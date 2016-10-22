@@ -3,16 +3,18 @@ import java.awt.Graphics;
 
 
 public class Glass {
+	final static int maxLine=21;
+	final static int maxColon=15;
 	private int[] x = {0, 10, 10, 310, 310, 320, 320, 0};
 	private int[] y = {0, 0, 600, 600, 0, 0, 610, 610};
-	private int[][] cells = new int[21][10];
+	private int[][] cells = new int[maxLine][maxColon];
 	public Glass() {
 		clearGlass();
 	}
 	public void clearGlass() {
 		for (int i = 0; i<cells.length; i++) {
 			for (int j = 0; j<cells[i].length; j++) {
-				cells[i][j] = (i==cells.length-1) ? 10 : 0;
+				cells[i][j] = (i==cells.length-1) ? maxColon : 0;
 			}
 		}
 	}
@@ -26,10 +28,17 @@ public class Glass {
 		return cells[i][j];
 	}
 	public void draw(Graphics g) {
-		g.setColor(Color.GRAY);
-		g.fillRect(10,0,300,600);
 	//	g.setColor(Color.BLACK);
-		g.fillPolygon(x,y,x.length);
+		for (int i=0; i<cells.length-1; i++) {
+			for (int j=0; j<cells[i].length; j++)
+//			if (pat[i][j]!=0){
+//				g.setColor(COLORS[pat[i][j]]);
+				g.fillRect((j)*30+11,(i)*30+1,28,28);
+//			}
+		}
+//		g.fillRect(10,0,300,600);
+	//	g.setColor(Color.BLACK);
+	//	g.fillPolygon(x,y,x.length);
 		for (int i = 0; i<cells.length-1; i++) {
 			for (int j = 0; j<cells[i].length; j++) {
 				drawCell(g,i,j);
@@ -56,8 +65,8 @@ public class Glass {
 	}
 	private int clearFullLines() {
 		int linesCount = 0;
-		lineLoop: for (int i=1; i<20; i++){
-			for (int j=0; j<10; j++) {	
+		lineLoop: for (int i=1; i< maxLine-1; i++){
+			for (int j=0; j<maxColon; j++) {	
 				if (cells[i][j]==0) {
 					continue lineLoop;
 				}
@@ -66,8 +75,8 @@ public class Glass {
 			for (int j=i; j>=1; j--) {
 				cells[j]=cells[j-1];
 			}
-			cells[0] = new int[10];
-			for (int j=0; j<10; j++) {
+			cells[0] = new int[maxColon];
+			for (int j=0; j<maxColon; j++) {
 				cells[0][j]=0;
 			}
 		}

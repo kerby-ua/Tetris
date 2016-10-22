@@ -14,7 +14,6 @@ public class TetrisGamePanel extends javax.swing.JPanel implements ActionListene
 	private int level = 1;
 	Timer t = new javax.swing.Timer(DELAY[level], this);
 public TetrisGamePanel() {
-	stakan = new Glass();
 	startNewGame();
 	t.start();
 }

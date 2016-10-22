@@ -140,7 +140,7 @@ public void rotate() {
 	}
 }
 public boolean canDown(Glass stakan) {
-	int[][] a = new int[21][10];
+	int[][] a = new int[stakan.maxLine][stakan.maxColon];
 	for (int i = 0; i<stakan.getHeight(); i++) {
 		for (int j = 0; j<stakan.getWidth(); j++) {
 			a[i][j] = stakan.getCell(i,j);
@@ -215,7 +215,7 @@ public void moveLeft() {
 	}
 }
 public void moveRight() {
-	if (x<10-pat[0].length) {
+	if (x<Glass.maxLine-pat[0].length) {
 		x++;
 	}
 	}
