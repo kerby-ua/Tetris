@@ -57,10 +57,8 @@ public class Glass {
 				}
 			}
 		}
-		int lines = clearFullLines();
-		if (lines>0) return lines;
 		if (f.getY()==0) return -1;
-		return 0;
+		return clearFullLines();
 	}
 	private int clearFullLines() {
 		int linesCount = 0;

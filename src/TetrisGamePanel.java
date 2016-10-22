@@ -16,7 +16,7 @@ public class TetrisGamePanel extends javax.swing.JPanel implements ActionListene
 	private Figure fig = null;
 	private int score = 0;
 	private int gameState;
-	private int[] DELAY = {500, 450, 400, 350, 300, 250, 200, 150, 100, 50};
+	private int[] DELAY = {500, 400, 300, 200, 150, 120, 100, 80, 60, 40};
 	private int level = 1;
 	Timer t = new javax.swing.Timer(DELAY[level], this);
 public TetrisGamePanel() {
@@ -30,7 +30,7 @@ public void paintComponent(Graphics g) {
 	fig.draw(g);
 	g.setFont(new Font("Times New Roman", Font.BOLD, 24));
 	g.setColor(Color.BLACK);
-	g.drawString("Next: ", 430, 30);
+	g.drawString("Next figure: ", 410, 20);
 	g.drawString("Score: " + score, 410, 200);
 	g.drawString("Level: " + level, 410, 220);
 }
@@ -39,7 +39,7 @@ public int getScore() {
 }
 public void startNewGame() {
 	score = 0;
-	level = 1;
+	level = 0;
 	fig = new Figure();
 	stakan = new Glass();
 	gameState = PLAY;
@@ -112,9 +112,10 @@ public static void checkLeaders(int score) throws IOException {
        	i++;  
           }
        
-          String a="";
+          String a=null;
           if (flag){
-        	  a = (String)JOptionPane.showInputDialog(
+        	  a = (String)
+        			  JOptionPane.showInputDialog(
                       null,
                       "Congratulations, \n"
                       + "you are in the list of leaders",
@@ -123,29 +124,32 @@ public static void checkLeaders(int score) throws IOException {
                       null,
                       null,
                       "Your name");
-        	  a=a.replace(' ', '_');
-        	  for(i=0;i<temp.length;i++)
+        	  if (a!=null){
+        		  a=a.replace(' ', '_');
+        	  	for(i=0;i<temp.length;i++)
         		  if ((score>Integer.parseInt(temp[i].substring(temp[i].indexOf(" ")+1)))&&(flag)){
         			  temp[i]=a+" "+score;
         			  flag=false;
         			  }
-        	  BufferedWriter  out = new BufferedWriter(new FileWriter(file,false));
-        	  for(i=0;i<temp.length;i++){
-        		  out.write(temp[i]);
-        		  out.append('\n');
+        	  	BufferedWriter  out = new BufferedWriter(new FileWriter(file,false));
+        	  	for(i=0;i<temp.length;i++){
+        	  		out.write(temp[i]);
+        	  		out.append('\n');
+        	  	}
+        	  	out.flush();
         	  }
-        	  out.flush();
           }
 }
 public void actionPerformed(ActionEvent e) {
 	if (gameState != PLAY) {
 		return;
 	}
-	int bonus;
+
 	if (fig.canDown(stakan)) {
 		fig.moveDown();
 	} else {
-		if ((bonus = stakan.acceptFigure(fig)) < 0) {
+		int plus;
+		if ((plus=stakan.acceptFigure(fig)) < 0) {
 			stopGame();
 			JOptionPane.showMessageDialog(null, "Your score: "+score, "Game over", JOptionPane.PLAIN_MESSAGE);
 			try {
@@ -155,18 +159,9 @@ public void actionPerformed(ActionEvent e) {
 				e1.printStackTrace();
 			}
 		}
-		if (bonus > 0) {
-			switch (bonus) {
-			case 4:
-				score += 20;
-			case 3:
-				score += 15;
-			case 2:
-				score += 10;
-			case 1:
-				score += 5;
-			}
-			int newLevel = score / 100 + 1;
+		else  {
+			score+=plus*10;	
+			int newLevel = (score )/ 50 + 1;
 			if (newLevel > level && level < 9) {
 				level++;
 			}
@@ -178,7 +173,6 @@ public void actionPerformed(ActionEvent e) {
 	}
 	repaint();
 	}
-// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 private void initComponents() {
 	javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 	this.setLayout(layout);
@@ -190,5 +184,5 @@ private void initComponents() {
 			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 			.addGap(0, 300, Short.MAX_VALUE)
 			);
-	}// </editor-fold>//GEN-END:initComponents
+	}
 }

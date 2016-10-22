@@ -40,13 +40,13 @@ final static byte[][][] PATTERN = {
 	}
 };
 final static Color[] COLORS = {
-	Color.GRAY,
+	Color.darkGray,
 	Color.BLUE,
 	Color.CYAN,
 	Color.GREEN,
-	Color.MAGENTA,
-	Color.RED,
+	Color.ORANGE,
 	Color.PINK,
+	Color.RED,
 	Color.YELLOW
 };
 private int type;
@@ -120,13 +120,14 @@ public void drawNext(Graphics g, int px, int py) {
 			p[i][j] = p2[p.length-i-1][j];
 		}
 	}
-	for (int i=0; i<4; i++) for (int j=0; j<4; j++) {
-		g.setColor(COLORS[0]);
-		g.fillRect(j*30+px, i*30+py, 28,28);
-	}
+	//for (int i=0; i<4; i++) for (int j=0; j<4; j++) {
+	//	g.setColor(COLORS[0]);
+	//	g.fillRect(j*30+px, i*30+py, 28,28);
+	//}
 	for (int i=0; i<p.length; i++) for(int j=0; j<p[0].length; j++) {
+		if(p[i][j]!=0){
 		g.setColor(COLORS[p[i][j]]);
-		g.fillRect(j*30+px, i*30+py, 28,28);
+		g.fillRect(j*30+px, i*30+py, 28,28);}
 	}
 }	
 public void rotate() {
