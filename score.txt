@@ -1,9 +1,9 @@
-DeveloperG2 320
-DeveloperG2 300
-DeveloperG2 290
+Developer 320
+Developer 300
+Developer 290
 Developer 260
 Developer 250
-DeveloperG2 250
+Developer 250
 Developer 220
 Developer 220
 Developer 220
