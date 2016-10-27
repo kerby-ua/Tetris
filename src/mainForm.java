@@ -1,4 +1,7 @@
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -8,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class TetrisFrame extends javax.swing.JFrame {
+public class mainForm extends javax.swing.JFrame {
 
 	private javax.swing.JPanel buttonPanel;
 	private javax.swing.JMenu jMenu;
@@ -17,13 +20,19 @@ public class TetrisFrame extends javax.swing.JFrame {
 	private javax.swing.JMenuItem menuFileExit;
 	private javax.swing.JMenuItem menuNewGame;
 	private javax.swing.JMenuItem menuPauseGame;
-	private TetrisGamePanel tetrisGamePanel;
+	private mainPainter tetrisGamePanel;
 	
 	private javax.swing.JMenuItem menuSaveGame;
 	private javax.swing.JMenuItem menuLoadGame;
 	private javax.swing.JMenuItem menuScore;
+	
 
-public TetrisFrame() {
+public static void main(String[] args) throws InterruptedException {
+	mainForm frame=new mainForm();
+	frame.setVisible(true);
+}
+	
+public mainForm() {
 	initComponents();
 	tetrisGamePanel.grabFocus();
 }
@@ -31,7 +40,7 @@ public TetrisFrame() {
 private void initComponents() {
 	buttonPanel = new JPanel();
 	menuNewGame = new javax.swing.JMenuItem();
-	tetrisGamePanel = new TetrisGamePanel();
+	tetrisGamePanel = new mainPainter();
 	menuBar = new javax.swing.JMenuBar();
 	jMenu = new javax.swing.JMenu();
 	menuPauseGame = new javax.swing.JMenuItem();
@@ -40,7 +49,8 @@ private void initComponents() {
 	menuSaveGame = new javax.swing.JMenuItem();
 	jSeparator = new javax.swing.JSeparator();
 	menuFileExit = new javax.swing.JMenuItem();
-	
+	this.setName("Tetris");
+	//frame.setBackground(Color.BLACK);
 	   Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 				int sizeWidth = 555;
 				
@@ -48,7 +58,12 @@ private void initComponents() {
 				int locationY = 0; 
 				setBounds(locationX, locationY, sizeWidth, screenSize.height);
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				setResizable(false);
+				Container fc =this.getContentPane();
+				 buttonPanel.setBackground(Color.BLACK);
+				fc.setBackground(Color.BLACK);
+				tetrisGamePanel.setBackground(Color.BLACK);
+				
+				this.setResizable(false);
 	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 	//setExtendedState(MAXIMIZED_BOTH);
 	setFocusable(false);
@@ -140,7 +155,7 @@ private void initComponents() {
 		pack();
 }
 private void tetrisGamePanel1KeyPressed(java.awt.event.KeyEvent evt) {
-	TetrisGamePanel p = (TetrisGamePanel)tetrisGamePanel;
+	mainPainter p = (mainPainter)tetrisGamePanel;
 	switch (evt.getKeyCode()) {
 	case KeyEvent.VK_LEFT:
 		p.figureMoveLeft();
@@ -165,11 +180,11 @@ private void tetrisGamePanel1KeyPressed(java.awt.event.KeyEvent evt) {
 	repaint();
 }//GEN-LAST:event_tetrisGamePanel1KeyPressed
 private void menuNewGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNewGame1ActionPerformed
-	TetrisGamePanel p = (TetrisGamePanel)tetrisGamePanel;
+	mainPainter p = (mainPainter)tetrisGamePanel;
 	p.startNewGame();
 }//GEN-LAST:event_menuNewGame1ActionPerformed
 private void menuPauseGame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPauseGame1ActionPerformed
-	TetrisGamePanel p = (TetrisGamePanel)tetrisGamePanel;
+	mainPainter p = (mainPainter)tetrisGamePanel;
 	p.gamePauseResume();
 }//GEN-LAST:event_menuPauseGame1ActionPerformed
 private void menuFileExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileExit1ActionPerformed
@@ -183,7 +198,7 @@ public void menuLoad1ActionPerformed(ActionEvent evt) {
 	
 }
 public void menuScore1ActionPerformed(ActionEvent evt) throws IOException {
-	TetrisGamePanel p = (TetrisGamePanel)tetrisGamePanel;
+	mainPainter p = (mainPainter)tetrisGamePanel;
 	p.gameScore();
 }
 }

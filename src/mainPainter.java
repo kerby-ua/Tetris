@@ -8,18 +8,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.*;
-public class TetrisGamePanel extends javax.swing.JPanel implements ActionListener {
+public class mainPainter extends javax.swing.JPanel implements ActionListener {
 	final static int PLAY = 1;
 	final static int STOP = 2;
 	final static int PAUSE =3;
-	private Glass stakan;
-	private Figure fig = null;
+	private mainRectangle stakan;
+	private ourFigures fig = null;
 	private int score = 0;
 	private int gameState;
 	private int[] DELAY = {500, 400, 300, 200, 150, 120, 100, 80, 60, 40};
 	private int level = 1;
 	Timer t = new javax.swing.Timer(DELAY[level], this);
-public TetrisGamePanel() {
+public mainPainter() {
 	startNewGame();
 	t.start();
 }
@@ -29,7 +29,7 @@ public void paintComponent(Graphics g) {
 	stakan.draw(g);
 	fig.draw(g);
 	g.setFont(new Font("Times New Roman", Font.BOLD, 24));
-	g.setColor(Color.BLACK);
+	g.setColor(Color.WHITE);
 	g.drawString("Next figure: ", 410, 20);
 	g.drawString("Score: " + score, 410, 200);
 	g.drawString("Level: " + level, 410, 220);
@@ -40,8 +40,8 @@ public int getScore() {
 public void startNewGame() {
 	score = 0;
 	level = 0;
-	fig = new Figure();
-	stakan = new Glass();
+	fig = new ourFigures();
+	stakan = new mainRectangle();
 	gameState = PLAY;
 }
 public void pauseGame() {
@@ -126,11 +126,24 @@ public static void checkLeaders(int score) throws IOException {
                       "Your name");
         	  if (a!=null){
         		  a=a.replace(' ', '_');
-        	  	for(i=0;i<temp.length;i++)
+        		  String buf=null;
+        		  
+        	  	for(i=0;i<temp.length;i++){
+        	  	  if ((buf!=null)&&(i<temp.length)){
+        	  		String buff=temp[i];
+        	  		temp[i]=buf;
+        	  		buf=buff;
+          		  }
+        	  	  else
+        	  	  {}
         		  if ((score>Integer.parseInt(temp[i].substring(temp[i].indexOf(" ")+1)))&&(flag)){
+        			  buf=temp[i];
         			  temp[i]=a+" "+score;
         			  flag=false;
         			  }
+        		  else
+        		  {}
+        	  	}
         	  	BufferedWriter  out = new BufferedWriter(new FileWriter(file,false));
         	  	for(i=0;i<temp.length;i++){
         	  		out.write(temp[i]);
@@ -167,7 +180,7 @@ public void actionPerformed(ActionEvent e) {
 			}
 		}
 		if (gameState == PLAY) {
-			fig = new Figure();
+			fig = new ourFigures();
 			t.setDelay(DELAY[level]);
 		}
 	}

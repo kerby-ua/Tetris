@@ -2,52 +2,93 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
-public class Figure {
+public class ourFigures {
 final static byte[][][] PATTERN = {
-	{{0,0,0,0}, // "пустой" шаблон - просто для удобства
+	{{0,0,0,0}, 
 	{0,0,0,0},
 	{0,0,0,0},
 	{0,0,0,0}
 	},
 	{
-	{1}, //
+	{1},
 	{1},
 	{1},
 	{1}
 	},
+	
 	{{2,0},
 	{2,0},
 	{2,2}
 	},
+	
 	{{0,3},
 	{0,3},
 	{3,3}
 	},
+	
 	{{4,0},
 	{4,4},
 	{4,0}
 	},
+	
 	{{5,0},
 	{5,5},
 	{0,5}
 	},
+	
 	{{0,6},
 	{6,6},
 	{6,0}
 	},
+	
 	{{7,7},
 	{7,7}
-	}
+	},
+	
+	{{8,8}
+	},
+	
+	{{9,9},
+	{9,0}
+	},
+	
+	{{10,0},
+	{0,10}
+	},
+	
+	{{11}
+	},
+	
+	{{12,12,12}
+	},
+	
+	{{0,13,0},
+	{13,0,13}
+	},
+	
 };
+static Color olive = new Color(128, 128, 0);
+static Color teal= new Color(0, 128, 128);
+static Color aqua= new Color(160, 5, 255);
+static Color green= new Color(0, 128, 0);
+static Color navy= new Color(40, 168, 128);
+static Color maroon= new Color(128, 0, 0);
+
 final static Color[] COLORS = {
 	Color.darkGray,
 	Color.BLUE,
 	Color.CYAN,
 	Color.GREEN,
-	Color.ORANGE,
 	Color.PINK,
 	Color.RED,
-	Color.YELLOW
+	Color.YELLOW,
+	Color.MAGENTA,
+	olive,
+	teal,
+	aqua,
+	green,
+	navy,
+	maroon
 };
 private int type;
 private int[][] pat;
@@ -55,7 +96,7 @@ private int x,y,rotation;
 private static Random r = new Random();
 private static int nextType = 0;
 private static int nextRot = -1;
-public Figure() {
+public ourFigures() {
 	if (nextType==0) {
 		type = r.nextInt(PATTERN.length-1)+1;
 		rotation = r.nextInt(4);
@@ -140,7 +181,7 @@ public void rotate() {
 		pat[i][j] = newPat[pat.length-i-1][j];
 	}
 }
-public boolean canDown(Glass stakan) {
+public boolean canDown(mainRectangle stakan) {
 	int[][] a = new int[stakan.maxLine][stakan.maxColon];
 	for (int i = 0; i<stakan.getHeight(); i++) {
 		for (int j = 0; j<stakan.getWidth(); j++) {
@@ -160,7 +201,7 @@ public boolean canDown(Glass stakan) {
 public void moveDown() {
 	y++;
 }
-public boolean canLeft(Glass stakan) {
+public boolean canLeft(mainRectangle stakan) {
 	if (x==0) return false;
 	int [][] s = new int[pat.length][pat[0].length];
 	for (int i=0; i<s.length; i++) for (int j=0; j<s[0].length; j++) {
@@ -173,7 +214,7 @@ public boolean canLeft(Glass stakan) {
 	}
 	return true;
 }
-public boolean canRight(Glass stakan) {
+public boolean canRight(mainRectangle stakan) {
 	if (x==stakan.getWidth()-pat[0].length) return false;
 	int [][] s = new int[pat.length][pat[0].length];
 	for (int i=0; i<s.length; i++) for (int j=0; j<s[0].length; j++) {
@@ -186,7 +227,7 @@ public boolean canRight(Glass stakan) {
 	}	
 	return true;
 }
-public boolean canRotate(Glass stakan) {
+public boolean canRotate(mainRectangle stakan) {
 	if (x+pat.length>stakan.getWidth()) 
 		return false;
 	int[][] tmpPat = new int[pat[0].length][pat.length];
@@ -216,7 +257,7 @@ public void moveLeft() {
 	}
 }
 public void moveRight() {
-	if (x<Glass.maxLine-pat[0].length) {
+	if (x<mainRectangle.maxLine-pat[0].length) {
 		x++;
 	}
 	}

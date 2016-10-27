@@ -2,12 +2,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 
-public class Glass {
+public class mainRectangle {
 	final static int maxLine=21;
 	final static int maxColon=12;
 	
 	private int[][] cells = new int[maxLine][maxColon];
-	public Glass() {
+	public mainRectangle() {
 		clearGlass();
 	}
 	public void clearGlass() {
@@ -45,10 +45,10 @@ public class Glass {
 		}
 	}
 	public void drawCell(Graphics g, int i, int j) {
-		g.setColor(Figure.COLORS[cells[i][j]]);
+		g.setColor(ourFigures.COLORS[cells[i][j]]);
 		g.fillRect(j*30+11,i*30+1,28,28);
 	}
-	public int acceptFigure(Figure f){
+	public int acceptFigure(ourFigures f){
 		for (int i=0; i<f.getHeight(); i++) {
 			for (int j=0; j<f.getWidth(); j++) {
 				int xx = f.getX()+j, yy = f.getY()+i;
