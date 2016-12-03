@@ -10,12 +10,25 @@ public class mainRectangle {
 	public mainRectangle() {
 		clearGlass();
 	}
+	//
+	public void setGlass(int[][] newcells) {
+		for (int i = 0; i<cells.length; i++) {
+			for (int j = 0; j<cells[i].length; j++) {
+				cells[i][j] = newcells[i][j];
+			}
+		}
+	}
+	public int[][] getGlass() {
+		return cells;
+	}
+	//
 	public void clearGlass() {
 		for (int i = 0; i<cells.length; i++) {
 			for (int j = 0; j<cells[i].length; j++) {
 				cells[i][j] = (i==cells.length-1) ? maxColon : 0;
 			}
 		}
+		cells[0][0]=cells[0][0];
 	}
 	public int getHeight() {
 		return cells.length;

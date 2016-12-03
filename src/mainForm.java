@@ -5,6 +5,10 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -74,8 +78,10 @@ private void initComponents() {
 	});
 	menuBar.setFocusable(false);
 	jMenu.setText("File");
+
 	jMenu.setFocusable(false);
 	jMenu.add(menuNewGame);
+	
 	menuNewGame.setText("Start New Game (R)");
 	menuNewGame.addActionListener(new java.awt.event.ActionListener() {
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +99,12 @@ private void initComponents() {
 		menuSaveGame.setText("Save Game");
 		menuSaveGame.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				menuSave1ActionPerformed(evt);
+				try {
+					menuSave1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -101,7 +112,12 @@ private void initComponents() {
 		menuLoadGame.setText("Load Game");
 		menuLoadGame.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				menuLoad1ActionPerformed(evt);
+				try {
+					menuLoad1ActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
@@ -191,14 +207,25 @@ private void menuFileExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 	System.exit(0);
 }//GEN-LAST:event_menuFileExit1ActionPerformed
 
-public void menuSave1ActionPerformed(ActionEvent evt) {
+public void menuSave1ActionPerformed(ActionEvent evt) throws IOException {
+	mainPainter p = (mainPainter)tetrisGamePanel;
+	p.gamePauseResume();
+	p.gameSave();
 	
 }
-public void menuLoad1ActionPerformed(ActionEvent evt) {
-	
+public void menuLoad1ActionPerformed(ActionEvent evt) throws IOException {
+	mainPainter p = (mainPainter)tetrisGamePanel;
+	p.gamePauseResume();
+	p.gameLoad();
+
+    
 }
 public void menuScore1ActionPerformed(ActionEvent evt) throws IOException {
 	mainPainter p = (mainPainter)tetrisGamePanel;
 	p.gameScore();
+}
+public void menuFile1ActionPerformed(ActionEvent evt){
+	mainPainter p = (mainPainter)tetrisGamePanel;
+	p.gamePauseResume();
 }
 }

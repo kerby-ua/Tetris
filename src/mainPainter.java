@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +20,62 @@ public class mainPainter extends javax.swing.JPanel implements ActionListener {
 	private int[] DELAY = {500, 400, 300, 200, 150, 120, 100, 80, 60, 40};
 	private int level = 1;
 	Timer t = new javax.swing.Timer(DELAY[level], this);
+public void gameLoad() throws IOException{
+	startNewGame();
+	File file = new File("saveload.txt");
+	BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
+	String s; String temp[];
+    int i=0;
+    temp=new String[stakan.maxLine*stakan.maxColon+2];
+    while (((s = in.readLine()) != null)) {
+   	   temp[i]=s;
+   	   	i++;  
+    }
+    level=Integer.parseInt(temp[0]);
+    score = Integer.parseInt(temp[1]);
+    int k=2;
+    int[][] cells = new int[stakan.maxLine][stakan.maxColon];
+	for (i = 0; i<cells.length; i++) {
+		for (int j = 0; j<cells[i].length; j++) {
+			cells[i][j]=Integer.parseInt(temp[k]);
+			k++;
+		}
+	}
+	stakan.setGlass(cells);
+	
+	t.start();
+	
+} 
+public void gameSave() throws IOException{
+	//startNewGame();
+//	gameState = PAUSE;
+	
+	File file = new File("saveload.txt");
+	String temp[];
+  
+    
+    temp=new String[stakan.maxLine*stakan.maxColon+2];
+    
+    temp[0]=Integer.toString(level);
+    temp[1]=Integer.toString(score);
+    
+    int[][] cells = new int[stakan.maxLine][stakan.maxColon];
+    cells=stakan.getGlass();
+    int k=2;
+	for (int i = 0; i<cells.length; i++) {
+		for (int j = 0; j<cells[i].length; j++) {
+			temp[k]=Integer.toString(cells[i][j]);
+			k++;
+		}
+	}
+  	BufferedWriter  out = new BufferedWriter(new FileWriter(file,false));
+  	for(int i=0;i<temp.length;i++){
+  		out.write(temp[i]);
+  		out.append('\n');
+  	}
+  	out.flush();
+  
+} 
 public mainPainter() {
 	startNewGame();
 	t.start();
